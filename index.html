@@ -130,6 +130,8 @@
             object-fit: cover;
             opacity: var(--cover-image-opacity, 0.62);
             z-index: 0;
+            pointer-events: none;
+            user-select: none;
         }
         .cover-content {
             position: relative;
@@ -137,6 +139,7 @@
             width: 100%;
             padding: 0 18px;
             box-sizing: border-box;
+            pointer-events: none;
         }
         .my-page.cover.has-cover-image::after {
             content: "";
@@ -467,6 +470,7 @@
             coverImage.src = cover.image;
             coverImage.alt = cover.imageAlt || cover.title || '魔法书封面';
             coverImage.loading = 'eager';
+            coverImage.draggable = false;
             page.appendChild(coverImage);
         }
 
@@ -587,7 +591,10 @@
             }
 
             playBtn.textContent = '▶';
-            wrapper.addEventListener('click', () => showViewer(item.src, 'video'));
+            wrapper.addEventListener('pointerup', (event) => {
+                event.stopPropagation();
+                showViewer(item.src, 'video');
+            });
             wrapper.append(video, playBtn);
             return wrapper;
         }
@@ -597,7 +604,10 @@
         image.dataset.src = item.src;
         image.alt = item.alt;
         image.loading = 'lazy';
-        image.addEventListener('click', () => showViewer(item.src, 'image'));
+        image.addEventListener('pointerup', (event) => {
+            event.stopPropagation();
+            showViewer(item.src, 'image');
+        });
         return image;
     }
 
@@ -680,7 +690,7 @@
                     maxHeight: pageSize.height,
                     showCover: true, flippingTime: 1200,
                     maxShadowOpacity: 0.8, drawBookShadow: true,
-                    useMouseEvents: true,
+                    useMouseEvents: false,
                     usePortrait: true
                 });
 
@@ -755,8 +765,11 @@
         }
 
         const handler = (e) => {
-            const tag = e.target && e.target.tagName ? e.target.tagName.toLowerCase() : '';
-            if (tag === 'img' || e.target.closest('.video-wrapper') || e.target.closest('#media-viewer')) {
+            const target = e.target instanceof Element ? e.target : null;
+            if (!target) {
+                return;
+            }
+            if (target.closest('.page-media, .page-media-grid, .video-wrapper, #media-viewer')) {
                 return;
             }
 
@@ -770,7 +783,8 @@
             }
         };
 
-        document.addEventListener('click', handler, true);
+        const eventName = window.PointerEvent ? 'pointerup' : 'click';
+        document.addEventListener(eventName, handler, true);
         window.__magicBookNavBound = true;
     }
 
