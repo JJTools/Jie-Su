@@ -291,6 +291,8 @@
     const viewerImg = document.getElementById('viewer-img');
     const viewerVideo = document.getElementById('viewer-video');
     const BOOK_DATA_URL = 'data/months.json';
+    const MEDIA_PRELOAD_PAGE_COUNT = 5;
+    const LAZY_IMAGE_PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
     // 显示放大内容 (区分图片和视频)
     function showViewer(src, type = 'image') {
@@ -468,12 +470,12 @@
             const video = createElement('video');
             const playBtn = createElement('div', 'play-btn');
 
-            video.src = item.src;
-            video.preload = 'metadata';
+            video.dataset.src = item.src;
+            video.preload = 'none';
             video.muted = true;
             video.playsInline = true;
             if (item.poster) {
-                video.poster = item.poster;
+                video.dataset.poster = item.poster;
             }
 
             playBtn.textContent = '▶';
@@ -483,11 +485,46 @@
         }
 
         const image = createElement('img');
-        image.src = item.src;
+        image.src = LAZY_IMAGE_PLACEHOLDER;
+        image.dataset.src = item.src;
         image.alt = item.alt;
         image.loading = 'lazy';
         image.addEventListener('click', () => showViewer(item.src, 'image'));
         return image;
+    }
+
+    function preloadMediaWindow(pages, startPageIndex, pageCount = MEDIA_PRELOAD_PAGE_COUNT) {
+        const safeStartIndex = Math.max(0, Math.min(Number(startPageIndex) || 0, pages.length - 1));
+        let loadedContentPages = 0;
+
+        for (let index = safeStartIndex; index < pages.length && loadedContentPages < pageCount; index++) {
+            const page = pages[index];
+            if (page.classList.contains('cover')) {
+                continue;
+            }
+
+            loadPageMedia(page);
+            loadedContentPages++;
+        }
+    }
+
+    function loadPageMedia(page) {
+        page.querySelectorAll('img[data-src]').forEach((image) => {
+            image.src = image.dataset.src;
+            delete image.dataset.src;
+        });
+
+        page.querySelectorAll('video[data-src]').forEach((video) => {
+            if (video.dataset.poster) {
+                video.poster = video.dataset.poster;
+                delete video.dataset.poster;
+            }
+
+            video.preload = 'metadata';
+            video.src = video.dataset.src;
+            delete video.dataset.src;
+            video.load();
+        });
     }
 
     function createElement(tagName, className = '') {
@@ -511,6 +548,7 @@
 
     function initFlipbook(flipbookEl, loadingEl) {
         const pages = flipbookEl.querySelectorAll('.my-page');
+        preloadMediaWindow(pages, 0);
 
         // 尝试获取外部卷曲引擎类
         let PageFlipClass = null;
@@ -534,14 +572,27 @@
                 });
 
                 pageFlipInstance.loadFromHTML(pages);
+                let currentPageIndex = 0;
+                if (typeof pageFlipInstance.on === 'function') {
+                    pageFlipInstance.on('flip', (event) => {
+                        currentPageIndex = Number(event.data) || 0;
+                        preloadMediaWindow(pages, currentPageIndex);
+                    });
+                }
 
                 // 绑定全局点击翻页 (智能避开图片、视频封面和弹出层)
                 document.body.addEventListener('click', function(e) {
                     const tag = e.target.tagName.toLowerCase();
                     if (tag === 'img' || e.target.closest('.video-wrapper') || e.target.closest('#media-viewer')) return;
 
-                    if (e.clientX < window.innerWidth / 2) pageFlipInstance.flipPrev();
-                    else pageFlipInstance.flipNext();
+                    if (e.clientX < window.innerWidth / 2) {
+                        pageFlipInstance.flipPrev();
+                        currentPageIndex = Math.max(0, currentPageIndex - 1);
+                    } else {
+                        pageFlipInstance.flipNext();
+                        currentPageIndex = Math.min(pages.length - 1, currentPageIndex + 1);
+                    }
+                    preloadMediaWindow(pages, currentPageIndex);
                 });
 
                 finishLoading();
@@ -569,11 +620,13 @@
                     if (currentIndex > 0) {
                         currentIndex--;
                         pages[currentIndex].classList.remove('flipped');
+                        preloadMediaWindow(pages, currentIndex);
                     }
                 } else {
                     if (currentIndex < pages.length - 1) {
                         pages[currentIndex].classList.add('flipped');
                         currentIndex++;
+                        preloadMediaWindow(pages, currentIndex);
                     }
                 }
             });
