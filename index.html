@@ -693,19 +693,17 @@
                     });
                 }
 
-                // 绑定全局点击翻页 (智能避开图片、视频封面和弹出层)
-                document.body.addEventListener('click', function(e) {
-                    const tag = e.target.tagName.toLowerCase();
-                    if (tag === 'img' || e.target.closest('.video-wrapper') || e.target.closest('#media-viewer')) return;
-
-                    if (e.clientX < window.innerWidth / 2) {
+                bindPageNavigation({
+                    onPrev: () => {
                         pageFlipInstance.flipPrev();
                         currentPageIndex = Math.max(0, currentPageIndex - 1);
-                    } else {
+                        preloadMediaWindow(pages, currentPageIndex);
+                    },
+                    onNext: () => {
                         pageFlipInstance.flipNext();
                         currentPageIndex = Math.min(pages.length - 1, currentPageIndex + 1);
+                        preloadMediaWindow(pages, currentPageIndex);
                     }
-                    preloadMediaWindow(pages, currentPageIndex);
                 });
 
                 finishLoading();
@@ -725,17 +723,15 @@
 
             pages.forEach((page, index) => { page.style.zIndex = pages.length - index; });
 
-            document.body.addEventListener('click', function(e) {
-                const tag = e.target.tagName.toLowerCase();
-                if (tag === 'img' || e.target.closest('.video-wrapper') || e.target.closest('#media-viewer')) return;
-
-                if (e.clientX < window.innerWidth / 2) {
+            bindPageNavigation({
+                onPrev: () => {
                     if (currentIndex > 0) {
                         currentIndex--;
                         pages[currentIndex].classList.remove('flipped');
                         preloadMediaWindow(pages, currentIndex);
                     }
-                } else {
+                },
+                onNext: () => {
                     if (currentIndex < pages.length - 1) {
                         pages[currentIndex].classList.add('flipped');
                         currentIndex++;
@@ -751,6 +747,31 @@
             loadingEl.style.display = 'none';
             flipbookEl.classList.add('ready');
         }
+    }
+
+    function bindPageNavigation({ onPrev, onNext }) {
+        if (window.__magicBookNavBound) {
+            return;
+        }
+
+        const handler = (e) => {
+            const tag = e.target && e.target.tagName ? e.target.tagName.toLowerCase() : '';
+            if (tag === 'img' || e.target.closest('.video-wrapper') || e.target.closest('#media-viewer')) {
+                return;
+            }
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (e.clientX < window.innerWidth / 2) {
+                onPrev();
+            } else {
+                onNext();
+            }
+        };
+
+        document.addEventListener('click', handler, true);
+        window.__magicBookNavBound = true;
     }
 
     function getResponsivePageSize() {
