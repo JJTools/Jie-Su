@@ -1,0 +1,106 @@
+{
+  "cover": {
+    "title": "魔法时光书",
+    "subtitle": "✦ Jie与Su的时光机 ✦"
+  },
+  "ending": {
+    "text": "故事仍在继续..."
+  },
+  "months": [
+    {
+      "time": "2023-01-01",
+      "title": "时空原点",
+      "body": "翻开这一页，便是魔法的开始。\n\n现在它拥有了自适应魔法与画廊效果。不管是单张大图还是九宫格里的某一个小片段，您只需轻轻点击，它就会在全屏中清晰展现。",
+      "media": [
+        {
+          "type": "image",
+          "src": "https://picsum.photos/800/600?random=1",
+          "alt": "魔法书开篇影像"
+        }
+      ]
+    },
+    {
+      "time": "2024-05-20",
+      "title": "落日海滩的黄昏",
+      "body": "单张照片会自动充满相框。你可以点击下方这张图片，体验全屏放大的效果。",
+      "media": [
+        {
+          "type": "image",
+          "src": "https://picsum.photos/800/600?random=2",
+          "alt": "落日海滩"
+        }
+      ]
+    },
+    {
+      "time": "2025-08-15",
+      "title": "美好的点滴片段",
+      "body": "如果有许多照片，它会像微信朋友圈一样自动排版成九宫格。每一张照片都可以单独点击放大查看细节。",
+      "media": [
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=10",
+          "alt": "片段一"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=11",
+          "alt": "片段二"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=12",
+          "alt": "片段三"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=13",
+          "alt": "片段四"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=14",
+          "alt": "片段五"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=15",
+          "alt": "片段六"
+        }
+      ]
+    },
+    {
+      "time": "2025-10-01",
+      "title": "会动的风景",
+      "body": "现在，视频在日记上只会呈现精美的缩略图。点击缩略图，它便会以完美的原始比例全屏弹出播放。",
+      "media": [
+        {
+          "type": "video",
+          "src": "https://www.w3schools.com/html/mov_bbb.mp4",
+          "alt": "会动的风景"
+        }
+      ]
+    },
+    {
+      "time": "2026-06-18",
+      "title": "光影与记忆交织",
+      "body": "静态的瞬间与动态的流光在九宫格中完美共存。缩略图不会变形，点开后各自呈现出最美的原始形态。",
+      "media": [
+        {
+          "type": "video",
+          "src": "https://www.w3schools.com/html/mov_bbb.mp4",
+          "alt": "流光视频"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=20",
+          "alt": "光影一"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=21",
+          "alt": "光影二"
+        }
+      ]
+    }
+  ]
+}
