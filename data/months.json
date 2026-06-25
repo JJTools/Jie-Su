@@ -1,7 +1,16 @@
 {
+  "background": {
+    "image": "https://picsum.photos/1600/1000?random=90",
+    "blur": 20,
+    "brightness": 0.72,
+    "overlay": "rgba(10, 5, 16, 0.38)"
+  },
   "cover": {
     "title": "魔法时光书",
-    "subtitle": "✦ Jie与Su的时光机 ✦"
+    "subtitle": "✦ Jie与Su的时光机 ✦",
+    "image": "https://picsum.photos/900/1260?random=91",
+    "imageAlt": "魔法书封面",
+    "imageOpacity": 0.66
   },
   "ending": {
     "text": "故事仍在继续..."
