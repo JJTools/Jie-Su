@@ -205,11 +205,22 @@
         }
         .page-media-grid img:hover { filter: brightness(0.9); }
         
-        /* 根据图片数量自动分行分列 */
-        .page-media-grid.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .page-media-grid.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-        .page-media-grid.grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .page-media-grid.grid-multi { grid-template-columns: repeat(3, minmax(0, 1fr)); } /* 5-9 图自动均分 */
+        /* 6 列底层网格：通过单项跨度实现 5 图第二行拉宽、不留空白 */
+        .page-media-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+        .page-media-grid .media-item {
+            grid-column: span 2;
+            width: 100%;
+            height: 100%;
+            min-width: 0;
+            min-height: 0;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+        .page-media-grid.layout-2 .media-item { grid-column: span 3; }
+        .page-media-grid.layout-4 .media-item { grid-column: span 3; }
+        .page-media-grid.layout-5 .media-item:nth-child(n + 4) { grid-column: span 3; }
+        .page-media-grid.layout-7 .media-item:nth-child(n + 7) { grid-column: span 3; }
+        .page-media-grid.layout-8 .media-item:nth-child(n + 7) { grid-column: span 2; }
 
         /* =========================================
            视频缩略图展示层 (解决页面排版变形问题)
@@ -567,7 +578,7 @@
     function createMediaBlock(mediaItems) {
         const visibleMediaItems = mediaItems.slice(0, 9);
         const isSingle = visibleMediaItems.length === 1;
-        const mediaBlock = createElement('div', isSingle ? 'page-media' : `page-media-grid ${getGridClass(visibleMediaItems.length)}`);
+        const mediaBlock = createElement('div', isSingle ? 'page-media' : `page-media-grid layout-${visibleMediaItems.length}`);
 
         if (!isSingle) {
             const rowCount = getGridRowCount(visibleMediaItems.length);
@@ -579,20 +590,20 @@
         }
 
         visibleMediaItems.forEach((item) => {
-            mediaBlock.appendChild(createMediaElement(item));
+            if (isSingle) {
+                mediaBlock.appendChild(createMediaElement(item));
+                return;
+            }
+
+            const mediaItem = createElement('div', 'media-item');
+            mediaItem.appendChild(createMediaElement(item));
+            mediaBlock.appendChild(mediaItem);
         });
         return mediaBlock;
     }
 
-    function getGridClass(count) {
-        if (count === 2) return 'grid-2';
-        if (count === 3) return 'grid-3';
-        if (count === 4) return 'grid-4';
-        return 'grid-multi';
-    }
-
     function getGridRowCount(count) {
-        if (count <= 2) return 1;
+        if (count <= 3) return 1;
         if (count <= 4) return 2;
         return Math.ceil(count / 3);
     }
