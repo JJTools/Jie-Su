@@ -21,6 +21,7 @@
             margin: 0; 
             padding: 0; 
             height: 100vh;
+            height: 100dvh;
             width: 100vw;
             display: flex; 
             justify-content: center; 
@@ -74,21 +75,15 @@
         #flipbook { 
             position: relative;
             z-index: 2;
-            width: 92vw;
-            height: calc(92vw * 1.4); 
-            max-width: 500px;
-            max-height: 700px;
+            width: min(100vw, calc(100dvh * 0.7142));
+            height: 100vh;
+            height: 100dvh;
+            max-width: none;
+            max-height: none;
             box-shadow: 0 0 50px rgba(0,0,0,0.9), 0 0 30px rgba(108, 48, 130, 0.6); 
             border-radius: 4px; 
             opacity: 0; 
             transition: opacity 1s ease;
-        }
-        
-        @media (min-aspect-ratio: 5/7) {
-            #flipbook {
-                height: 85vh;
-                width: calc(85vh * 0.7142); 
-            }
         }
         #flipbook.ready { opacity: 1; }
         
@@ -252,15 +247,16 @@
            ========================================= */
         @media (max-width: 480px) {
             #flipbook {
-                width: calc(100vw - 72px);
-                height: calc((100vw - 72px) * 1.4);
+                width: 100vw;
+                height: 100vh;
+                height: 100dvh;
                 max-width: none;
-                max-height: calc(100vh - 48px);
+                max-height: none;
             }
             #flipbook .stf__wrapper,
             #flipbook .stf__block,
             #flipbook canvas {
-                max-width: calc(100vw - 72px) !important;
+                max-width: 100vw !important;
             }
             .cover-content { padding: 0 10px; }
             .my-page { padding: 25px 20px; } 
@@ -282,9 +278,10 @@
         }
         @media (max-width: 360px) {
             #flipbook {
-                width: calc(100vw - 56px);
-                height: calc((100vw - 56px) * 1.4);
-                max-height: calc(100vh - 32px);
+                width: 100vw;
+                height: 100vh;
+                height: 100dvh;
+                max-height: none;
             }
             .my-page { padding: 15px 15px; }
             .my-page.cover h1 { font-size: 1.95rem; }
@@ -791,13 +788,8 @@
     function getResponsivePageSize() {
         const viewportWidth = window.innerWidth || 500;
         const viewportHeight = window.innerHeight || 700;
-        const sideGap = viewportWidth <= 360 ? 56 : viewportWidth <= 480 ? 72 : 0;
-        const targetWidth = viewportWidth <= 480
-            ? viewportWidth - sideGap
-            : Math.min(500, Math.floor(viewportHeight * 0.7142 * 0.85), Math.floor(viewportWidth * 0.92));
-        const maxHeight = viewportWidth <= 480 ? viewportHeight - 48 : Math.min(700, viewportHeight - 32);
-        const height = Math.max(280, Math.min(Math.floor(targetWidth * 1.4), maxHeight));
-        const width = Math.max(200, Math.min(targetWidth, Math.floor(height / 1.4), 500));
+        const height = Math.max(280, viewportHeight);
+        const width = Math.max(200, Math.min(viewportWidth, Math.floor(height / 1.4)));
 
         return {
             width,
