@@ -1,6 +1,6 @@
 {
   "background": {
-    "image": "https://picsum.photos/1600/1000?random=90",
+    "image": "https://pic1.imgdb.cn/item/65e952ea9f345e8d0372829b.jpg",
     "blur": 20,
     "brightness": 0.72,
     "overlay": "rgba(10, 5, 16, 0.38)"
@@ -8,7 +8,7 @@
   "cover": {
     "title": "魔法时光书",
     "subtitle": "✦ Jie与Su的时光机 ✦",
-    "image": "https://picsum.photos/900/1260?random=91",
+    "image": "https://pic1.imgdb.cn/item/65e953319f345e8d03734572.jpg",
     "imageAlt": "魔法书封面",
     "imageOpacity": 0.66
   },
