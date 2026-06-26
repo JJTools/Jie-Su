@@ -110,6 +110,149 @@
           "alt": "光影二"
         }
       ]
+    },
+    {
+      "time": "2026-07-01",
+      "title": "验收页：2 个资源",
+      "body": "这里用于检查 2 个资源的布局：两张内容应横向铺满同一行。",
+      "media": [
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=101",
+          "alt": "2 个资源示例一"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=102",
+          "alt": "2 个资源示例二"
+        }
+      ]
+    },
+    {
+      "time": "2026-07-02",
+      "title": "验收页：5 个资源",
+      "body": "这里用于检查 5 个资源的布局：第一行 3 个方形，第二行 2 个拉宽铺满，不留空白。",
+      "media": [
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=111",
+          "alt": "5 个资源示例一"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=112",
+          "alt": "5 个资源示例二"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=113",
+          "alt": "5 个资源示例三"
+        },
+        {
+          "type": "video",
+          "src": "https://www.w3schools.com/html/mov_bbb.mp4",
+          "alt": "5 个资源示例四"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=115",
+          "alt": "5 个资源示例五"
+        }
+      ]
+    },
+    {
+      "time": "2026-07-03",
+      "title": "验收页：7 个资源",
+      "body": "这里用于检查 7 个资源的布局：前两行各 3 个，最后 1 个拉宽铺满。",
+      "media": [
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=121",
+          "alt": "7 个资源示例一"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=122",
+          "alt": "7 个资源示例二"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=123",
+          "alt": "7 个资源示例三"
+        },
+        {
+          "type": "video",
+          "src": "https://www.w3schools.com/html/mov_bbb.mp4",
+          "alt": "7 个资源示例四"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=125",
+          "alt": "7 个资源示例五"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=126",
+          "alt": "7 个资源示例六"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=127",
+          "alt": "7 个资源示例七"
+        }
+      ]
+    },
+    {
+      "time": "2026-07-04",
+      "title": "验收页：9 个资源",
+      "body": "这里用于检查 9 个资源的布局：完整 3x3 九宫格，所有内容都应显示完整。",
+      "media": [
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=131",
+          "alt": "9 个资源示例一"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=132",
+          "alt": "9 个资源示例二"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=133",
+          "alt": "9 个资源示例三"
+        },
+        {
+          "type": "video",
+          "src": "https://www.w3schools.com/html/mov_bbb.mp4",
+          "alt": "9 个资源示例四"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=135",
+          "alt": "9 个资源示例五"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=136",
+          "alt": "9 个资源示例六"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=137",
+          "alt": "9 个资源示例七"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=138",
+          "alt": "9 个资源示例八"
+        },
+        {
+          "type": "image",
+          "src": "https://picsum.photos/600/600?random=139",
+          "alt": "9 个资源示例九"
+        }
+      ]
     }
   ]
 }

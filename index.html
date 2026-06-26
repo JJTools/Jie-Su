@@ -183,7 +183,8 @@
             display: grid; 
             gap: 4px; 
             padding: 4px;
-            height: var(--media-grid-height, 280px); 
+            height: auto;
+            aspect-ratio: 3 / var(--media-grid-rows, 3);
             background: #fffcf5; 
             border-radius: 4px; 
             overflow: hidden; 
@@ -217,10 +218,10 @@
             border-radius: 2px;
         }
         .page-media-grid.layout-2 .media-item { grid-column: span 3; }
-        .page-media-grid.layout-4 .media-item { grid-column: span 3; }
+        .page-media-grid.layout-4 .media-item:nth-child(4) { grid-column: span 6; }
         .page-media-grid.layout-5 .media-item:nth-child(n + 4) { grid-column: span 3; }
-        .page-media-grid.layout-7 .media-item:nth-child(n + 7) { grid-column: span 3; }
-        .page-media-grid.layout-8 .media-item:nth-child(n + 7) { grid-column: span 2; }
+        .page-media-grid.layout-7 .media-item:nth-child(7) { grid-column: span 6; }
+        .page-media-grid.layout-8 .media-item:nth-child(n + 7) { grid-column: span 3; }
 
         /* =========================================
            视频缩略图展示层 (解决页面排版变形问题)
@@ -289,7 +290,7 @@
             .page-title { font-size: 1.3rem; margin: 5px 0 10px 0; }
             .page-text { font-size: 0.95rem; line-height: 1.7; }
             .page-media { margin-top: 10px; height: 180px; border-width: 4px; gap: 3px; padding: 3px;} 
-            .page-media-grid { margin-top: 10px; height: var(--media-grid-height-mobile, var(--media-grid-height, 180px)); border-width: 4px; gap: 3px; padding: 3px;} 
+            .page-media-grid { margin-top: 10px; border-width: 4px; gap: 3px; padding: 3px;} 
             .play-btn { width: 36px; height: 36px; font-size: 16px; }
             .page-footer { margin-top: 15px; padding-top: 8px; font-size: 0.8rem; }
         }
@@ -305,7 +306,6 @@
             .page-title { font-size: 1.1rem; }
             .page-text { font-size: 0.85rem; line-height: 1.6; }
             .page-media { height: 150px; }
-            .page-media-grid { height: var(--media-grid-height-small, var(--media-grid-height-mobile, var(--media-grid-height, 150px))); }
         }
 
         /* =========================================
@@ -583,10 +583,7 @@
         if (!isSingle) {
             const rowCount = getGridRowCount(visibleMediaItems.length);
             mediaBlock.style.gridTemplateRows = `repeat(${rowCount}, minmax(0, 1fr))`;
-            const heights = getGridHeights(rowCount);
-            mediaBlock.style.setProperty('--media-grid-height', heights.desktop);
-            mediaBlock.style.setProperty('--media-grid-height-mobile', heights.mobile);
-            mediaBlock.style.setProperty('--media-grid-height-small', heights.small);
+            mediaBlock.style.setProperty('--media-grid-rows', rowCount);
         }
 
         visibleMediaItems.forEach((item) => {
@@ -606,15 +603,6 @@
         if (count <= 3) return 1;
         if (count <= 4) return 2;
         return Math.ceil(count / 3);
-    }
-
-    function getGridHeights(rowCount) {
-        const heightMap = {
-            1: { desktop: '92px', mobile: '58px', small: '48px' },
-            2: { desktop: '184px', mobile: '119px', small: '99px' },
-            3: { desktop: '280px', mobile: '180px', small: '150px' }
-        };
-        return heightMap[rowCount] || heightMap[3];
     }
 
     function createMediaElement(item) {
