@@ -196,6 +196,8 @@
         .page-media-grid img { 
             width: 100%; 
             height: 100%; 
+            min-width: 0;
+            min-height: 0;
             object-fit: cover; 
             border-radius: 2px; 
             cursor: zoom-in; 
@@ -206,7 +208,7 @@
         /* 根据图片数量自动分行分列 */
         .page-media-grid.grid-2 { grid-template-columns: repeat(2, 1fr); grid-template-rows: 1fr; }
         .page-media-grid.grid-4 { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); }
-        .page-media-grid.grid-multi { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; } /* 3, 6, 9图自动均分 */
+        .page-media-grid.grid-multi { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr); } /* 3, 6, 9图自动均分 */
 
         /* =========================================
            视频缩略图展示层 (解决页面排版变形问题)
@@ -215,6 +217,8 @@
             position: relative;
             width: 100%;
             height: 100%;
+            min-width: 0;
+            min-height: 0;
             cursor: pointer;
             border-radius: 2px;
             overflow: hidden;
@@ -561,6 +565,10 @@
         const isSingle = mediaItems.length === 1;
         const mediaBlock = createElement('div', isSingle ? 'page-media' : `page-media-grid ${getGridClass(mediaItems.length)}`);
 
+        if (!isSingle) {
+            mediaBlock.style.gridTemplateRows = `repeat(${getGridRowCount(mediaItems.length)}, minmax(0, 1fr))`;
+        }
+
         mediaItems.forEach((item) => {
             mediaBlock.appendChild(createMediaElement(item));
         });
@@ -571,6 +579,12 @@
         if (count === 2) return 'grid-2';
         if (count === 4) return 'grid-4';
         return 'grid-multi';
+    }
+
+    function getGridRowCount(count) {
+        if (count <= 2) return 1;
+        if (count <= 4) return 2;
+        return Math.ceil(count / 3);
     }
 
     function createMediaElement(item) {
