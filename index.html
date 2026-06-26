@@ -152,7 +152,7 @@
         .page-date { font-size: 1.2rem; font-weight: bold; font-family: 'Cinzel', serif; color: #5d4037; }
         .page-mark { color: rgba(139, 69, 19, 0.4); }
         .page-title { font-size: 1.6rem; font-weight: bold; margin: 10px 0 15px 0; color: #2e1a12; }
-        .page-text { font-size: 1.15rem; line-height: 1.9; color: #3e2723; flex-grow: 1; white-space: pre-wrap; }
+        .page-text { font-size: 1.15rem; line-height: 1.9; color: #3e2723; flex: 0 0 auto; white-space: pre-wrap; }
         .book-error { justify-content: center; text-align: center; }
         .book-error .page-text { flex-grow: 0; }
         
@@ -160,7 +160,7 @@
            单图与单视频容器
            ========================================= */
         .page-media { 
-            margin-top: auto; 
+            margin-top: 12px; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
@@ -179,7 +179,7 @@
            微信朋友圈九宫格 (多图容器) 
            ========================================= */
         .page-media-grid {
-            margin-top: auto; 
+            margin-top: 12px; 
             display: grid; 
             gap: 4px; 
             padding: 4px;
@@ -272,7 +272,7 @@
             .page-date { font-size: 1rem; }
             .page-title { font-size: 1.3rem; margin: 5px 0 10px 0; }
             .page-text { font-size: 0.95rem; line-height: 1.7; }
-            .page-media, .page-media-grid { height: 180px; border-width: 4px; gap: 3px; padding: 3px;} 
+            .page-media, .page-media-grid { margin-top: 10px; height: 180px; border-width: 4px; gap: 3px; padding: 3px;} 
             .play-btn { width: 36px; height: 36px; font-size: 16px; }
             .page-footer { margin-top: 15px; padding-top: 8px; font-size: 0.8rem; }
         }
