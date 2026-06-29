@@ -16,7 +16,7 @@
     <style>
         /* 沉浸式魔法全屏背景 */
         body { 
-            background: radial-gradient(circle at center, #2b133d 0%, #0a0510 100%); 
+            background: #0b0b0d; 
             font-family: 'Noto Serif SC', serif; 
             margin: 0; 
             padding: 0; 
@@ -38,12 +38,15 @@
             inset: -40px;
             z-index: 0;
             pointer-events: none;
-            background: radial-gradient(circle at center, #2b133d 0%, #0a0510 100%);
+            background:
+                linear-gradient(115deg, rgba(255,255,255,0.08), transparent 28%, rgba(255,255,255,0.04) 48%, transparent 72%),
+                radial-gradient(circle at 50% 42%, #303237 0%, #141519 42%, #050506 100%);
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
             filter: blur(var(--background-blur, 18px)) brightness(var(--background-brightness, 0.75));
             transform: scale(1.05);
+            overflow: hidden;
         }
 
         #app-background::after {
@@ -51,6 +54,43 @@
             position: absolute;
             inset: 0;
             background: var(--background-overlay, rgba(10, 5, 16, 0.35));
+        }
+
+        #app-background::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: var(--loaded-background-image);
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+        }
+
+        #app-background .background-veil {
+            position: absolute;
+            inset: -20%;
+            background:
+                linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.08) 38%, transparent 56%),
+                radial-gradient(circle at 30% 35%, rgba(255,255,255,0.09), transparent 32%),
+                radial-gradient(circle at 70% 65%, rgba(212,175,55,0.08), transparent 28%);
+            opacity: 1;
+            animation: backgroundVeil 6s ease-in-out infinite alternate;
+            transition: opacity 1s ease;
+        }
+
+        #app-background.image-ready::before {
+            opacity: 1;
+        }
+
+        #app-background.image-ready .background-veil {
+            opacity: 0;
+        }
+
+        @keyframes backgroundVeil {
+            from { transform: translate3d(-2%, -1%, 0) scale(1); }
+            to { transform: translate3d(2%, 1%, 0) scale(1.04); }
         }
 
         /* 加载动画 */
@@ -144,7 +184,7 @@
             background: linear-gradient(180deg, rgba(21, 6, 33, 0.2), rgba(21, 6, 33, 0.78));
             pointer-events: none;
         }
-        .my-page.cover h1 { font-family: 'Zhi Mang Xing', cursive; font-size: 4.5rem; margin-bottom: 0px; text-shadow: 0 0 15px rgba(0, 0, 0, 0.75), 0 0 18px rgba(212, 175, 55, 0.6); }
+        .my-page.cover h1 { font-family: 'Noto Serif SC', serif; font-size: 4.5rem; margin-bottom: 0px; text-shadow: 0 0 15px rgba(0, 0, 0, 0.75), 0 0 18px rgba(212, 175, 55, 0.6); }
         .my-page.cover p { font-size: 1.4rem; letter-spacing: 5px; margin-top: 15px; color: #f0d58a; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.75); }
         
         /* 日记内容排版 */
@@ -352,7 +392,9 @@
 </head>
 <body>
 
-<div id="app-background" aria-hidden="true"></div>
+<div id="app-background" aria-hidden="true">
+    <div class="background-veil"></div>
+</div>
 
 <!-- 全屏放大查看器：支持图片和视频以原本尺寸播放 -->
 <div id="media-viewer" onclick="hideViewer()">
@@ -455,7 +497,12 @@
         if (!backgroundEl) return;
 
         if (background.image) {
-            backgroundEl.style.backgroundImage = `url("${background.image}")`;
+            const backgroundImage = new Image();
+            backgroundImage.onload = () => {
+                backgroundEl.style.setProperty('--loaded-background-image', `url("${background.image}")`);
+                backgroundEl.classList.add('image-ready');
+            };
+            backgroundImage.src = background.image;
         }
 
         if (Number.isFinite(Number(background.blur))) {
