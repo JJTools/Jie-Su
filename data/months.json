@@ -18,13 +18,13 @@
   "months": [
     {
       "time": "2023-01-01",
-      "title": "时空原点",
-      "body": "翻开这一页，便是魔法的开始。\n\n现在它拥有了自适应魔法与画廊效果。不管是单张大图还是九宫格里的某一个小片段，您只需轻轻点击，它就会在全屏中清晰展现。",
+      "title": "喜欢的第一眼",
+      "body": "或许从这天开始，Jie就喜欢上Su了。可能当时Jie也不知道",
       "media": [
         {
           "type": "image",
-          "src": "https://picsum.photos/800/600?random=1",
-          "alt": "魔法书开篇影像"
+          "src": "https://pic1.imgdb.cn/item/6a4519d2d82989bc6aae53cd.jpg",
+          "alt": "故事的开始"
         }
       ]
     },
