@@ -19,7 +19,7 @@
     {
       "time": "2026-04-29",
       "title": "喜欢的第一眼",
-      "body": "或许从这天开始，Jie就喜欢上Su了。可能当时Jie也不知道",
+      "body": "或许从这天开始，Jie就喜欢上Su了。可能当时Jie也不知道,但是当时已经为Su学会弹奏她喜欢的《几分之几》，或者从这天开始，彼此都成为了对方的几分之几。这天也学会了《刻在我新心底的名字》，或许这也在彼此心里刻下了对方的名字。",
       "media": [
         {
           "type": "image",
@@ -29,9 +29,26 @@
       ]
     },
     {
+      "time": "2026-04-29",
+      "title": "从这天开始，我们相依而睡",
+      "body": "慢慢的，Jie 和 Su 的光崽每天开始相拥在一起，互相陪伴着彼此，就连睡觉也在一起度过",
+      "media": [
+        {
+          "type": "image",
+          "src": "https://pic1.imgdb.cn/item/6a451dedd82989bc6aaeacd5.jpg",
+          "alt": "睡眠相拥"
+        }
+      ]
+    },
+    {
+      "time": "2026-05-01",
+      "title": "Jie的乖乖Su",
+      "body": "今天似乎没有特别的照片纪念~但是从这天开始，Su 让 Jie 叫他乖乖，而 Su 也开始叫 Jie 宝宝。在这一天，两个人关系发生了很大的变化。他们成为了情侣~",
+    },
+    {
       "time": "2026-05-02",
       "title": "爱的开始",
-      "body": "我们度过第一个五一，Jie对Su说：我喜欢你，这一天Jie把壁纸换成了属于他们合影的壁纸",
+      "body": "我们度过第一个五一，Jie对Su说：我喜欢你，这一天Jie把壁纸换成了属于他们合影的壁纸。",
       "media": [
         {
           "type": "image",
@@ -49,31 +66,6 @@
           "type": "image",
           "src": "https://picsum.photos/600/600?random=10",
           "alt": "片段一"
-        },
-        {
-          "type": "image",
-          "src": "https://picsum.photos/600/600?random=11",
-          "alt": "片段二"
-        },
-        {
-          "type": "image",
-          "src": "https://picsum.photos/600/600?random=12",
-          "alt": "片段三"
-        },
-        {
-          "type": "image",
-          "src": "https://picsum.photos/600/600?random=13",
-          "alt": "片段四"
-        },
-        {
-          "type": "image",
-          "src": "https://picsum.photos/600/600?random=14",
-          "alt": "片段五"
-        },
-        {
-          "type": "image",
-          "src": "https://picsum.photos/600/600?random=15",
-          "alt": "片段六"
         }
       ]
     },
